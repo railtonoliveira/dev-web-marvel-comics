@@ -1,0 +1,19 @@
+.container-gallery {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-width: 70%;
+}
+
+.comic-card {
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
+    margin-bottom: 20px;
+    background-color: #fff;
+}
+
+.comic-card:hover {
+    filter: grayscale(100%);
+}
