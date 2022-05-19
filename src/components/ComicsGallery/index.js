@@ -4,13 +4,13 @@ import './styles.css';
 import { getComicResourceByTitleStartsWith } from '../../services/api';
 import Gallery from '../Gallery';
 
-function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
+function ComicsGallery({ query, handleSelect, sendEmail }) {
 	const [results, setResults] = useState([]);
 	const [totalComics, setTotalComics] = useState(0);
 	const [index, setIndex] = useState(0);
 	const [limit, setlimit] = useState(10);
 	const [loading, setLoading] = useState(false);
-	const [newQuery, setNewQuery] = useState({});
+	const [oldQuery, setOldQuery] = useState({});
 
 	useLayoutEffect(() => {
 		setResults([]);
@@ -21,8 +21,6 @@ function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
 	}, [query]);
 
 	useEffect(() => {
-		let isSubscribed = true;
-
 		const fetch = async () => {
 			if (query?.length >= 3) {
 				setLoading(true);
@@ -33,31 +31,24 @@ function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
 					limit
 				);
 
-				const { total = 0 } = response || {};
+				const { total } = response || {};
 
-				if (isSubscribed) {
-					onSearchEnd();
-					setTotalComics(total);
+				setTotalComics(total);
 
-					if (newQuery.query !== query) {
-						setResults(response?.results || []);
-					} else {
-						setResults(results.concat(response?.results || []));
-					}
-
-					setLoading(false);
-					setNewQuery({ query });
+				if (oldQuery.query !== query) {
+					setResults(response?.results || []);
+				} else {
+					setResults(results.concat(response?.results || []));
 				}
+
+				setLoading(false);
+				setOldQuery({ query });
 
 				if (results.length === 1) handleSelect(results[0]);
 			}
 		};
 
 		fetch();
-
-		return () => {
-			isSubscribed = false;
-		};
 	}, [index, query]);
 
 	const handleChange = (isNext) => {
@@ -67,6 +58,11 @@ function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
 			setIndex(index > 0 ? index - 1 : 0);
 		}
 	};
+
+	const galleryData = results.map((result) => ({
+		comic: result,
+		callback: handleSelect,
+	}));
 
 	if (loading) {
 		return <div>loading</div>;
@@ -86,12 +82,7 @@ function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
 				)}
 			</div>
 			<div className='gallery-comics'>
-				<Gallery
-					comics={results.map((result) => ({
-						comic: result,
-						callback: handleSelect,
-					}))}
-				/>
+				<Gallery comics={galleryData} />
 			</div>
 			<div className='content-buttons'>
 				{index + 1 < totalComics / limit && (

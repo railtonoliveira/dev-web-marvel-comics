@@ -54,17 +54,12 @@ function Home() {
 		);
 	};
 
-	const onSearchEnd = () => {
-		setLoading(false);
-	};
-
 	return (
 		<div>
 			<Header />
 			<Search onChange={onSearchChange} loading={loading} />
 			<ComicsGallery
 				query={query}
-				onSearchEnd={onSearchEnd}
 				handleSelect={handleSelect}
 				sendEmail={sendEmail}
 			/>
