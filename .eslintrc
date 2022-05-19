@@ -5,6 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
+        "eslint:recommended",
+        "plugin:prettier/recommended",
         "airbnb",
         "prettier"
     ],
@@ -16,9 +18,28 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+				"eslint-plugin-import-helpers"
     ],
     "rules": {
-       
-    }
+				"import-helpers/order-imports": [
+					"warn",
+					{
+						"newlinesBetween": "always",
+						"groups": [ "module", "/^@shared/", ["parent", "sibling", "index"] ],
+						"alphabetize": { "order": "asc", "ignoreCase": true }
+					}
+				],
+
+        "prettier/prettier": "error",
+        "no-use-before-define": ["error", { "variables": false }],
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+				"no-console": "off",
+				"react/prop-types": "off",
+				"no-nested-ternary": "off"
+
+				/* "no-unused-vars": "off", */
+				/* "react/destructuring-assignment": "off" */
+				/* "react/jsx-props-no-spreading": "off" */
+		}
 }

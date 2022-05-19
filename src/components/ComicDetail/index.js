@@ -1,11 +1,8 @@
-import React from "react";
-import "./styles.css";
+import React from 'react';
+import './styles.css';
 
-const ComicDetail = () => {
-  
-  return (
-    <div></div>
-  )
+function ComicDetail() {
+	return <h1>Comic Detail</h1>;
 }
 
 export default ComicDetail;
