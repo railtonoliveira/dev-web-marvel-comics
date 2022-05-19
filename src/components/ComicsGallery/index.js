@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
+
 import './styles.css';
-import Gallery from '../Gallery';
 import { getComicResourceByTitleStartsWith } from '../../services/api';
+import Gallery from '../Gallery';
 
 function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
 	const [results, setResults] = useState([]);
@@ -23,7 +24,7 @@ function ComicsGallery({ query, onSearchEnd, handleSelect, sendEmail }) {
 		let isSubscribed = true;
 
 		const fetch = async () => {
-			if (query.length >= 3) {
+			if (query?.length >= 3) {
 				setLoading(true);
 
 				const response = await getComicResourceByTitleStartsWith(

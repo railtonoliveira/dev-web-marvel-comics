@@ -1,5 +1,5 @@
 import emailjs from '@emailjs/browser';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './styles.css';
 
 import ComicsGallery from '../../components/ComicsGallery';
@@ -8,65 +8,20 @@ import Header from '../../components/Header';
 import Search from '../../components/Search';
 
 function Home() {
-	const [initilize, setInitialize] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [selected, setSelected] = useState([]);
-	const [queryData, setQueryData] = useState({
-		query: '',
-		filter: '',
-		queryIsId: false,
-	});
+	const [queryData, setQueryData] = useState({ query: '' });
+
 	const creatorsList = [];
-
 	const { query } = queryData;
-
-	useEffect(() => {
-		const comicId = getComicIdByQueryUrl(getUrlParams());
-		searchInitialize(comicId);
-	}, []);
-
-	const getUrlParams = () => {
-		const params = decodeURI(window.location.search)
-			?.replace('?', '')
-			?.split('&')
-			?.map((urlQuery) => ({
-				[urlQuery.split('=')[0]]: urlQuery.split('=')[1],
-			}))
-			?.reduce((acc, urlQuery) => {
-				const data = {
-					...acc,
-					...urlQuery,
-				};
-				return data;
-			}, {});
-
-		return params;
-	};
-
-	const getComicIdByQueryUrl = (value) => value.comicId;
-
-	const searchInitialize = (comic) => {
-		let initialQuery;
-		let filter;
-
-		if (comic) {
-			initialQuery = comic;
-			filter = 'COMICS';
-		}
-
-		setInitialize({ initialQuery, filter });
-
-		return !!initialQuery && setLoading(true);
-	};
 
 	const onSearchChange = (search) => {
 		setQueryData(search);
-		setLoading(`${search.query}`.length >= 3);
+		setLoading(true);
 	};
 
 	const handleSelect = (comic) => {
 		setSelected(comic);
-		console.log('selected: ', selected);
 	};
 
 	const sendEmail = (e) => {
@@ -106,11 +61,7 @@ function Home() {
 	return (
 		<div>
 			<Header />
-			<Search
-				onChange={onSearchChange}
-				loading={loading}
-				initilize={initilize}
-			/>
+			<Search onChange={onSearchChange} loading={loading} />
 			<ComicsGallery
 				query={query}
 				onSearchEnd={onSearchEnd}

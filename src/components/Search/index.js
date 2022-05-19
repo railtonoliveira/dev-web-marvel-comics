@@ -1,19 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { FiSearch } from 'react-icons/fi';
+
 import Loader from '../Loader';
 import useDebounce from '../UseDebounce';
 
-function Search({ loading, onChange, initilize }) {
-	const [typeQuery, setTypeQuery] = useState(initilize.query || '');
+function Search({ loading, onChange }) {
+	const [typeQuery, setTypeQuery] = useState('');
 
-	let timer;
 	const debouncedSearchTerm = useDebounce(typeQuery, 1000);
-
-	useEffect(() => {
-		setTypeQuery(initilize.query || '');
-		return clearTimeout(timer);
-	}, [initilize]);
 
 	useEffect(() => {
 		if (debouncedSearchTerm) {
@@ -28,7 +23,6 @@ function Search({ loading, onChange, initilize }) {
 			<div className='searchbar' onSubmit={(e) => e.preventDefault()}>
 				<input
 					className='input-search'
-					data-testid='search-searchbar-input'
 					onSubmit={(e) => e.preventDefault()}
 					onChange={(e) => {
 						setTypeQuery(e.target.value);
