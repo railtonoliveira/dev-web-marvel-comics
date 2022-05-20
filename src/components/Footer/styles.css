@@ -9,3 +9,18 @@
     padding: 20px 0;
     background-color: #202020;
 }
+
+.information {
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+}
+
+.developer {
+	color: #ffffff;
+}
+
+.social-media-icons {
+	display: flex;
+	justify-content: space-around;
+}
