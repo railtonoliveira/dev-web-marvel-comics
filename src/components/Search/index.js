@@ -2,43 +2,44 @@ import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { FiSearch } from 'react-icons/fi';
 
-import Loader from '../Loader';
-import useDebounce from '../UseDebounce';
+import useDebounce from '../../hooks/UseDebounce';
 
-function Search({ loading, onChange }) {
+function Search({ handleSearch }) {
 	const [typeQuery, setTypeQuery] = useState('');
 
-	const debouncedSearchTerm = useDebounce(typeQuery, 1000);
+	const debouncedSearch = useDebounce(typeQuery, 1000);
 
 	useEffect(() => {
-		if (debouncedSearchTerm) {
-			onChange({
-				query: debouncedSearchTerm,
+		if (debouncedSearch) {
+			handleSearch({
+				query: debouncedSearch,
 			});
 		}
-	}, [debouncedSearchTerm]);
+	}, [debouncedSearch]);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+	};
+
+	const handleChange = (e) => {
+		setTypeQuery(e.target.value);
+	};
 
 	return (
 		<div className='container-search'>
-			<div className='searchbar' onSubmit={(e) => e.preventDefault()}>
+			<div className='searchbar'>
 				<input
 					className='input-search'
-					onSubmit={(e) => e.preventDefault()}
-					onChange={(e) => {
-						setTypeQuery(e.target.value);
-					}}
-					placeholder='Search for a comic title'
+					onSubmit={handleSubmit}
+					onChange={handleChange}
+					placeholder='Enter a heros name'
 					value={typeQuery}
 					autoComplete='off'
 					spellCheck={false}
 				/>
-				{loading ? (
-					<Loader />
-				) : (
-					<button type='button' className='button-search' onClick={() => {}}>
-						<FiSearch size={24} />
-					</button>
-				)}
+				<button type='button' className='button-search'>
+					<FiSearch size={24} />
+				</button>
 			</div>
 		</div>
 	);

@@ -4,12 +4,12 @@ import './styles.css';
 import { getComicResourceByTitleStartsWith } from '../../services/api';
 import Gallery from '../Gallery';
 
-function ComicsGallery({ query, handleSelect, sendEmail }) {
+function ComicsGallery({ query, handleSelect }) {
+	const [loading, setLoading] = useState(false);
 	const [results, setResults] = useState([]);
 	const [totalComics, setTotalComics] = useState(0);
 	const [index, setIndex] = useState(0);
 	const [limit, setlimit] = useState(10);
-	const [loading, setLoading] = useState(false);
 	const [oldQuery, setOldQuery] = useState({});
 
 	useLayoutEffect(() => {
@@ -86,18 +86,13 @@ function ComicsGallery({ query, handleSelect, sendEmail }) {
 			</div>
 			<div className='content-buttons'>
 				{index + 1 < totalComics / limit && (
-					<div>
-						<button
-							type='button'
-							className='load-more-button'
-							onClick={handleChange}
-						>
-							LOAD MORE COMICS
-						</button>
-						<button type='button' className='send-email' onClick={sendEmail}>
-							SEND COMICS BY EMAIL
-						</button>
-					</div>
+					<button
+						type='button'
+						className='load-more-button'
+						onClick={handleChange}
+					>
+						LOAD MORE COMICS
+					</button>
 				)}
 			</div>
 			<div>
