@@ -4,34 +4,14 @@
     justify-items: center;
     justify-content: center;
     align-items: center;
-    margin-top: 36px;
+		flex-grow: 1;
+		flex-basis: auto;
+    padding-top: 36px;
 }
 
-.info-pagination {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    font-weight: 700;
-    font-size: 24px;
-}
-
-.gallery-comics {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    min-height: 200px;
-    padding-top: 25px;
-    padding-bottom: 35px;
-}
-
-.content-buttons {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    margin: 25px 0;
+.info-results {
+	font-weight: 700;
+	font-size: 24px;
 }
 
 .load-more-button {
@@ -43,18 +23,6 @@
     border-radius: 20px;
     margin: 10px;
     background-color: #EE171F;
-    cursor: pointer;
-}
-
-.send-email {
-    width: 250px;
-    height: 40px;
-    font-weight: 800;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 20px;
-    margin: 10px;
-    background-color: #000000;
     cursor: pointer;
 }
 

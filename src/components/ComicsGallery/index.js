@@ -3,6 +3,7 @@ import React, { useState, useEffect, useLayoutEffect } from 'react';
 import './styles.css';
 import { getComicResourceByTitleStartsWith } from '../../services/api';
 import Gallery from '../Gallery';
+import Loading from '../Loading';
 
 function ComicsGallery({ query, handleSelect }) {
 	const [loading, setLoading] = useState(false);
@@ -65,43 +66,38 @@ function ComicsGallery({ query, handleSelect }) {
 	}));
 
 	if (loading) {
-		return <div>loading</div>;
+		return <Loading />;
 	}
 
 	return (
 		<div className='container-comics'>
-			<div>
-				{query && (
-					<div className='info-pagination'>
-						{query.length < 3
-							? 'Ops... type minimun 3 characters for a searching'
-							: totalComics === 0 && query.length >= 3
-							? `Ops... ${totalComics} result found for "${query}"`
-							: `All comics for "${query}" in ${totalComics} results`}
-					</div>
-				)}
-			</div>
-			<div className='gallery-comics'>
-				<Gallery comics={galleryData} />
-			</div>
-			<div className='content-buttons'>
-				{index + 1 < totalComics / limit && (
-					<button
-						type='button'
-						className='load-more-button'
-						onClick={handleChange}
-					>
-						LOAD MORE COMICS
-					</button>
-				)}
-			</div>
-			<div>
-				{query && !(totalComics === 0 && query) && (
-					<div className='info-pagination'>
-						page {index + 1} of {Math.ceil(totalComics / limit)}
-					</div>
-				)}
-			</div>
+			{query && (
+				<div className='info-results'>
+					{query.length < 3
+						? 'Ops... type minimun 3 characters for a searching'
+						: totalComics === 0 && query.length >= 3
+						? `Ops... ${totalComics} result found for "${query}"`
+						: `All comics for "${query}" in ${totalComics} results`}
+				</div>
+			)}
+
+			<Gallery comics={galleryData} />
+
+			{index + 1 < totalComics / limit && (
+				<button
+					type='button'
+					className='load-more-button'
+					onClick={handleChange}
+				>
+					LOAD MORE COMICS
+				</button>
+			)}
+
+			{query && !(totalComics === 0 && query) && (
+				<div className='info-pagination'>
+					page {index + 1} of {Math.ceil(totalComics / limit)}
+				</div>
+			)}
 		</div>
 	);
 }

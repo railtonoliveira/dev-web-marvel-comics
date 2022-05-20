@@ -22,7 +22,7 @@ function Home() {
 	};
 
 	return (
-		<div>
+		<div className='container-home'>
 			<Header />
 			<Search handleSearch={handleSearch} />
 			<ComicsGallery query={query} handleSelect={handleSelect} />
