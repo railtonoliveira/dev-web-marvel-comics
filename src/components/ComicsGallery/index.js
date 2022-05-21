@@ -71,15 +71,17 @@ function ComicsGallery({ query, handleSelect }) {
 
 	return (
 		<div className='container-comics'>
-			{query && (
-				<div className='info-results'>
-					{query.length < 3
-						? 'Ops... type minimun 3 characters for a searching'
-						: totalComics === 0 && query.length >= 3
-						? `Ops... ${totalComics} result found for "${query}"`
-						: `All comics for "${query}" in ${totalComics} results`}
-				</div>
-			)}
+			<div className='results'>
+				{query && (
+					<div className='info-results'>
+						{query.length < 3
+							? 'Ops... type minimun 3 characters for a searching'
+							: totalComics === 0 && query.length >= 3
+							? `Ops... ${totalComics} result found for "${query}"`
+							: `All results for "${query}"`}
+					</div>
+				)}
+			</div>
 
 			<Gallery comics={galleryData} />
 
@@ -89,14 +91,8 @@ function ComicsGallery({ query, handleSelect }) {
 					className='load-more-button'
 					onClick={handleChange}
 				>
-					LOAD MORE COMICS
+					LOAD MORE
 				</button>
-			)}
-
-			{query && !(totalComics === 0 && query) && (
-				<div className='info-pagination'>
-					page {index + 1} of {Math.ceil(totalComics / limit)}
-				</div>
 			)}
 		</div>
 	);
