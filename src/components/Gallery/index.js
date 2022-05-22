@@ -12,10 +12,14 @@ function Gallery({ comics }) {
 					onClick={() => callback(comic)}
 				>
 					<img
+						className='blur'
 						src={`${comic?.thumbnail?.path}/standard_fantastic.jpg`}
 						alt={comic?.title}
 					/>
-					<h4>{comic?.title}</h4>
+					<div className='comic-info slide-up'>
+						<div className='comic-title'>{comic?.title}</div>
+						<div className='comic-details'>View Details</div>
+					</div>
 				</div>
 			))}
 		</div>
