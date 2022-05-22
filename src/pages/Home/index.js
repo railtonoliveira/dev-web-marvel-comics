@@ -4,11 +4,13 @@ import './styles.css';
 import ComicsGallery from '../../components/ComicsGallery';
 import Footer from '../../components/Footer';
 import Header from '../../components/Header';
+import Modal from '../../components/Modal';
 import Search from '../../components/Search';
 
 function Home() {
 	const [selected, setSelected] = useState([]);
 	const [queryData, setQueryData] = useState({ query: '' });
+	const [isOpen, setIsOpen] = useState(false);
 
 	const { query } = queryData;
 
@@ -19,12 +21,14 @@ function Home() {
 	const handleSelect = (comic) => {
 		setSelected(comic);
 		console.log('Comic Selected: ', selected);
+		setIsOpen(true);
 	};
 
 	return (
 		<div className='container-home'>
 			<Header />
 			<Search handleSearch={handleSearch} />
+			{isOpen && <Modal setIsOpen={setIsOpen} comicData={selected} />}
 			<ComicsGallery query={query} handleSelect={handleSelect} />
 			<Footer />
 		</div>
