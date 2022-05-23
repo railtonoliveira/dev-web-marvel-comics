@@ -26,9 +26,9 @@ function Home() {
 
 	return (
 		<div className='container-home'>
+			{isOpen && <Modal setIsOpen={setIsOpen} comicData={selected} />}
 			<Header />
 			<Search handleSearch={handleSearch} />
-			{isOpen && <Modal setIsOpen={setIsOpen} comicData={selected} />}
 			<ComicsGallery query={query} handleSelect={handleSelect} />
 			<Footer />
 		</div>
