@@ -2,7 +2,16 @@ import React from 'react';
 import './styles.css';
 import { RiCloseLine } from 'react-icons/ri';
 
-function Modal({ setIsOpen, comicData }) {
+function Modal({
+	setIsOpen,
+	comicImage,
+	comicTitle,
+	comicDatePublished,
+	comicWriter,
+	comicPenciler,
+	comicColorist,
+	comicDescription,
+}) {
 	return (
 		<div>
 			<div
@@ -11,21 +20,19 @@ function Modal({ setIsOpen, comicData }) {
 				aria-hidden='true'
 			>
 				<div className='modal'>
-					<div className='modal-header'>
-						<h3 className='title'>{comicData?.title}</h3>
-					</div>
 					<div className='modal-body'>
 						<img
-							src={`${comicData?.thumbnail?.path}/standard_fantastic.jpg`}
-							alt={comicData?.title}
+							src={`${comicImage}/standard_fantastic.jpg`}
+							alt={comicTitle}
 							width='300px'
 						/>
 						<div className='details'>
-							<h3>Published:</h3>
-							<h3>Writer:</h3>
-							<h3>Penciler:</h3>
-							<h3>Cover Artist:</h3>
-							<p>{comicData?.description}</p>
+							<h3>Title: {comicTitle}</h3>
+							<h3>Published: {comicDatePublished}</h3>
+							{comicWriter && <h3>Writer: {comicWriter}</h3>}
+							{comicPenciler && <h3>Penciler: {comicPenciler}</h3>}
+							{comicColorist && <h3>Colorist: {comicColorist}</h3>}
+							<p>{comicDescription}</p>
 						</div>
 					</div>
 					<button
