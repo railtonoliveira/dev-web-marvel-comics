@@ -30,8 +30,6 @@ api.interceptors.response.use(
 	}
 );
 
-export const getComicByUrl = async (resourceUrl) => api.get(resourceUrl);
-
 export const getComicByTitleStartsWith = async (title, offset, limit) => {
 	const url = `comics?titleStartsWith=${title}&offset=${offset}&limit=${limit}`;
 
@@ -79,41 +77,6 @@ export const getComicResourceByTitleStartsWith = async (
 			limit,
 			total,
 			count,
-		};
-	} catch (err) {
-		return console.log(err);
-	}
-};
-
-export const getComicByResourceUrl = async (resourceUrl) => {
-	try {
-		const response = await getComicByUrl(resourceUrl);
-
-		const {
-			name,
-			comics,
-			description,
-			images,
-			thumbnail,
-			creators,
-			characters,
-			dates,
-			pageCount,
-			urls = {},
-		} = response.data.data.results[0];
-
-		return {
-			name,
-			comics: comics.items,
-			series: comics.series,
-			description,
-			images,
-			thumbnail,
-			creators: creators.items,
-			characters: characters.items,
-			dates,
-			pageCount,
-			urls: urls.items,
 		};
 	} catch (err) {
 		return console.log(err);
